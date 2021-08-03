@@ -165,7 +165,7 @@ Begin ContainerControl Cc_Mastery
          Tooltip         =   ""
          Top             =   31
          Transparent     =   False
-         Value           =   0
+         Value           =   1
          Visible         =   True
          Width           =   740
          Begin PopupMenu popmastperiodoseval
