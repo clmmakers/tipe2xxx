@@ -1,0 +1,169 @@
+#tag FileTypeSet
+	#tag FileType
+		CodeName=ApplicationMsword
+		DocIcon=tipe2xxx.xojo_resources;&h0
+		Extension=.doc;.docx
+		Flags=&h0
+		MacCreator=MSWD
+		MacType=WDBN
+		Name=application/msword
+		UTI=
+		UTIConformsTo=,public.data
+		Description=
+		MimeType=
+		Imported=True
+		HandlerRank=&h9
+		UTIPhysicalType=public.data
+	#tag EndFileType
+
+	#tag FileType
+		CodeName=Pdf
+		DocIcon=tipe2xxx.xojo_resources;&hAA582C
+		Extension=.pdf
+		Flags=&h0
+		MacCreator=prvw
+		MacType=PDF 
+		Name=application/pdf
+		UTI=com.adobe.pdf
+		UTIConformsTo=,public.data
+		Description=
+		MimeType=
+		Imported=True
+		HandlerRank=&h9
+		UTIPhysicalType=public.data
+	#tag EndFileType
+
+	#tag FileType
+		CodeName=ApplicationVndMsExcel
+		DocIcon=tipe2xxx.xojo_resources;&h154B058
+		Extension=.xl;xls;xlsx
+		Flags=&h0
+		MacCreator=XCEL
+		MacType=XLS 
+		Name=application/vnd.ms-excel
+		UTI=
+		UTIConformsTo=,public.data
+		Description=
+		MimeType=
+		Imported=True
+		HandlerRank=&h9
+		UTIPhysicalType=public.data
+	#tag EndFileType
+
+	#tag FileType
+		CodeName=ApplicationZip
+		DocIcon=tipe2xxx.xojo_resources;&h1FF0884
+		Extension=.zip
+		Flags=&h0
+		MacCreator=SITx
+		MacType=ZIP 
+		Name=application/zip
+		UTI=
+		UTIConformsTo=,public.data
+		Description=
+		MimeType=
+		Imported=True
+		HandlerRank=&h9
+		UTIPhysicalType=public.data
+	#tag EndFileType
+
+	#tag FileType
+		CodeName=Text
+		DocIcon=tipe2xxx.xojo_resources;&h2A960B0
+		Extension=.asc;.ascii;.bas;.c;.class;.cp;.cpp;.h;.hp;.hpp;.i3;.java;.m2;.m3;.mak;.text;.txt
+		Flags=&h0
+		MacCreator=????
+		MacType=TEXT
+		Name=text/plain
+		UTI=public.text
+		UTIConformsTo=public.data, public.content
+		Description=
+		MimeType=
+		Imported=True
+		HandlerRank=&h9
+		UTIPhysicalType=public.data
+	#tag EndFileType
+
+	#tag FileType
+		CodeName=xml
+		DocIcon=tipe2xxx.xojo_resources;&h353B8DC
+		Extension=.xml
+		Flags=&h0
+		MacCreator=
+		MacType=XML
+		Name=text/xml
+		UTI=
+		UTIConformsTo=,public.data
+		Description=
+		MimeType=
+		Imported=True
+		HandlerRank=&h9
+		UTIPhysicalType=public.data
+	#tag EndFileType
+
+	#tag FileType
+		CodeName=json
+		DocIcon=tipe2xxx.xojo_resources;&h3FE1108
+		Extension=.json
+		Flags=&h0
+		MacCreator=
+		MacType=JSON
+		Name=application/json
+		UTI=public.json
+		UTIConformsTo=,public.data
+		Description=
+		MimeType=
+		Imported=True
+		HandlerRank=&h9
+		UTIPhysicalType=public.data
+	#tag EndFileType
+
+	#tag FileType
+		CodeName=Png
+		Extension=.png
+		Flags=&h0
+		MacCreator=
+		MacType=PNGf
+		Name=image/png
+		UTI=public.png
+		UTIConformsTo=public.image,public.data
+		Description=
+		MimeType=
+		Imported=True
+		HandlerRank=&h9
+		UTIPhysicalType=public.data
+	#tag EndFileType
+
+	#tag FileType
+		CodeName=Jpeg
+		Extension=.jfif;.jpe;.jpeg;.jpg
+		Flags=&h0
+		MacCreator=prvw
+		MacType=JPEG
+		Name=image/jpeg
+		UTI=public.jpeg
+		UTIConformsTo=public.image,public.data
+		Description=
+		MimeType=
+		Imported=True
+		HandlerRank=&h9
+		UTIPhysicalType=public.data
+	#tag EndFileType
+
+	#tag FileType
+		CodeName=csv
+		Extension=.csv
+		Flags=&h0
+		MacCreator=????
+		MacType=TEXT
+		Name=text/plain
+		UTI=public.text
+		UTIConformsTo=public.data, public.content
+		Description=
+		MimeType=
+		Imported=True
+		HandlerRank=&h9
+		UTIPhysicalType=public.data
+	#tag EndFileType
+
+#tag EndFileTypeSet
