@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Tipe, Recogida de datos en Servicio Servidor Directo</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+        <div class="comment-section">
+                <h1 class="comment-reply-title">Introduce tus datos personales</h1>
+                <form id="commentform" class="comment-form" action="devuelta.html" method="POST">
+                    <div class="comment-form-name">
+                        <input id="name" placeholder="Nombre *" name="name" type="text" value="" pattern="^[^0-9]+$" size="30" maxlength="245" required>
+                        <label for="name" data-help="No utilices abreviaturas">Nombre</label>
+                    </div>
+                    <div class="comment-form-surname">
+                        <input id="surname" placeholder="Apellidos *" name="surname" type="text" value="" size="30" maxlength="245" required>
+                        <label for="surname" data-help="No utilices abreviaturas">Apellidos</label>
+                    </div>
+                    <div class="comment-form-papas">
+                        <input id="papa" placeholder="Padre/Tutor *" name="papaname" type="text" value="" pattern="^[^0-9]+$" size="50" maxlength="245" required>
+                        <label for="papa" data-help="Nombre y Apellido">Padre/Tutor</label>
+                     </div>
+                     <div class="comment-form-papas">
+                         <input id="mama" placeholder="Madre/Tutora *" name="mamaname" type="text" value="" pattern="^[^0-9]+$" size="50" maxlength="245" required>
+                         <label for="mama" data-help="Nombre y Apellido">Madre/Tutora</label>
+                    </div>
+                    <div class="comment-form-papas">
+                        <input id="grupo" placeholder="Grupo *" name="grupo" type="text" value="" pattern="^[-a-zA-Z0-9@\.+_]+$" size="10" maxlength="20" required>
+                        <label for="grupo" data-help="Indica tu grupo asignado">Grupo</label>
+                   </div>
+                    <div class="comment-form-date">
+                        <input id="namimiento" name="birthdate" type="date" value="" width="200px" required>
+                        <label for="nacimiento" data-help="Asegúrate">Fecha Nacimiento</label>
+                    </div>
+                    <div class="comment-form-place">
+                        <input id="direccion" placeholder="Dirección *" name="direccion" type="text" value="" size="50" maxlength="245" required>
+                        <label for="direccion" data-help="Ej: C/ Sotomayor 45 2ºA, 13300 Valdepeñas">Dirección</label>
+                    </div>
+                    <div class="comment-form-email">
+                        <input id="email" placeholder="Email *" name="email" type="email" value="" size="30" maxlength="100" aria-describedby="email-notes" required>
+                        <label for="email" data-help="Formato email@email.com">Email</label>
+                    </div>
+                    <div class="comment-form-name">
+                        <input id="nacionalidad" placeholder="Nacionalidad *" name="nacionalidad" type="text" value="" pattern="^[^0-9]+$" size="30" maxlength="200" required>
+                        <label for="nacionalidad" data-help="Ej.: Española">Nacionalidad</label>
+                    </div>
+                    <div class="comment-form-telf">
+                        <input id="tlfcasa" placeholder="Telf. Casa" name="tlfcasa" type="number" value="" min="600000000" max="999999999" size="30" maxlength="200">
+                        <label for="tlfcasa" data-help="Ej.:926310521">Telf. fijo</label>
+                    </div>
+                    <div class="comment-form-telf">
+                        <input id="movilpa" placeholder="Móvil Padre/Tutor" name="movilpa" type="number" value="" min="600000000" max="999999999" size="30" maxlength="200">
+                        <label for="movilpa" data-help="Ej.:666666666">Móvil Padre/Tutor</label>
+                    </div>
+                    <div class="comment-form-telf">
+                        <input id="movilma" placeholder="Móvil Madre/Tutora" name="movilma" type="number" value="" min="600000000" max="999999999" size="30" maxlength="200">
+                        <label for="movilma" data-help="Ej.:666666666">Móvil Madre/Tutora</label>
+                    </div>
+                    <div class="comment-form-comment">
+                        <textarea textarea="" placeholder="Comentarios *" id="comment" name="comment" cols="45" rows="8" maxlength="65525" required></textarea>
+                        <label for="comment" data-help="Relevante a tu vida Académica, si eres Bilingüe, asignaturas pendientes de otros cursos, etc.">Comentario</label>
+                    </div>
+                    <div class="form-submit">
+                        <input name="submit" type="submit" id="submit" class="submit" value="Enviar Datos" onclick="myFunction()">
+                    </div>
+                </form>
+            </div>
+            <p id="demo"></p>
+    <script src="script.js"></script>
+</body>
+</html>
