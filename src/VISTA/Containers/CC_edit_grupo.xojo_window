@@ -47,7 +47,7 @@ Begin ContainerControl CC_edit_grupo
       Tooltip         =   ""
       Top             =   104
       Transparent     =   False
-      Value           =   0
+      Value           =   3
       Visible         =   True
       Width           =   715
       Begin pbuttonmultiplatform btncancel
@@ -1907,7 +1907,7 @@ End
 	#tag Event
 		Function CellBackgroundPaint(g as graphics, row as integer, column as integer) As Boolean
 		  if row>=me.ListCount then
-		     Return False
+		    Return False
 		  Else
 		    if me.CellTag(row,1) = "N" then
 		      g.ForeColor= RGB(255,90,97)

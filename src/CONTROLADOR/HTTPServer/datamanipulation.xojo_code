@@ -22,6 +22,7 @@ Protected Module datamanipulation
 		          app.appCc_Cursos.CC_edit_grupo1.Listbox1.Cell(app.appCc_Cursos.CC_edit_grupo1.Listbox1.LastIndex,11)=mdict(i).Value("comment").StringValue
 		          app.appCc_Cursos.CC_edit_grupo1.Listbox1.Cell(app.appCc_Cursos.CC_edit_grupo1.Listbox1.LastIndex,12)=mdict(i).Value("nacionalidad").StringValue
 		          app.appCc_Cursos.CC_edit_grupo1.Listbox1.Cell(app.appCc_Cursos.CC_edit_grupo1.Listbox1.LastIndex,13)=mdict(i).Value("grupo").StringValue
+		          //app.appCc_Cursos.CC_edit_grupo1.Listbox1.Cell(app.appCc_Cursos.CC_edit_grupo1.Listbox1.LastRowIndex,14)=mdict(i).Value("photo").StringValue
 		          
 		          mdict(i).Value("submit")=1
 		        end if

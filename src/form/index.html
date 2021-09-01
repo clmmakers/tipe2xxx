@@ -5,11 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Tipe, Recogida de datos en Servicio Servidor Directo</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css" integrity="sha512-0SPWAwpC/17yYyZ/4HSllgaK7/gg9OlVozq8K7rf3J8LvCjYEEIfzzpnA2/SSjpGIunCSD18r3UhvDcu/xncWA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js" integrity="sha512-ooSWpxJsiXe6t4+PPjCgYmVfr1NS5QXJACcR/FPpsdm6kqG1FmQ2SVyg2RXeVuCRBLr0lWHnWJP6Zs1Efvxzww==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
         <div class="comment-section">
-                <h1 class="comment-reply-title">Introduce tus datos personales</h1>
+                <h1 class="comment-reply-title">Introduce tus datos personales -form 480GB-</h1>
                 <form id="commentform" class="comment-form" action="devuelta.html" method="POST">
                     <div class="comment-form-name">
                         <input id="name" placeholder="Nombre *" name="name" type="text" value="" pattern="^[^0-9]+$" size="30" maxlength="245" required>
@@ -62,6 +64,16 @@
                     <div class="comment-form-comment">
                         <textarea textarea="" placeholder="Comentarios *" id="comment" name="comment" cols="45" rows="8" maxlength="65525" required></textarea>
                         <label for="comment" data-help="Relevante a tu vida Académica, si eres Bilingüe, asignaturas pendientes de otros cursos, etc.">Comentario</label>
+                    </div>
+                    <div id="phcrop" class="comment-form-comment">
+                        <p>Sube una foto (tipo carnet), Tu rostro debe estar en primer plano. Una vez la hayas seleccionado se mostrará una previsualización, asegúrate que tu rostro puede verse con nitidez.</p>
+                        <input name ="photo" id="photo" type="file" onchange="showCropper();" accept="image/*" capture>
+                        <template>
+                            <img id="photoCropper" src="" alt="">
+
+                        </template>
+                        <!-- <canvas name="photo"></canvas> -->
+                        <!-- <img id="photoview" src="" alt=""> -->
                     </div>
                     <div class="form-submit">
                         <input name="submit" type="submit" id="submit" class="submit" value="Enviar Datos" onclick="myFunction()">
