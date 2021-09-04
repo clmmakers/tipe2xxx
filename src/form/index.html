@@ -5,8 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Tipe, Recogida de datos en Servicio Servidor Directo</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css" integrity="sha512-0SPWAwpC/17yYyZ/4HSllgaK7/gg9OlVozq8K7rf3J8LvCjYEEIfzzpnA2/SSjpGIunCSD18r3UhvDcu/xncWA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js" integrity="sha512-ooSWpxJsiXe6t4+PPjCgYmVfr1NS5QXJACcR/FPpsdm6kqG1FmQ2SVyg2RXeVuCRBLr0lWHnWJP6Zs1Efvxzww==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script   src="https://code.jquery.com/jquery-1.8.3.min.js"   integrity="sha256-YcbK69I5IXQftf/mYD8WY0/KmEDCv1asggHpJk1trM8="   crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.css">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -65,22 +66,19 @@
                         <textarea textarea="" placeholder="Comentarios *" id="comment" name="comment" cols="45" rows="8" maxlength="65525" required></textarea>
                         <label for="comment" data-help="Relevante a tu vida Académica, si eres Bilingüe, asignaturas pendientes de otros cursos, etc.">Comentario</label>
                     </div>
-                    <div id="phcrop" class="comment-form-comment">
-                        <p>Sube una foto (tipo carnet), Tu rostro debe estar en primer plano. Una vez la hayas seleccionado se mostrará una previsualización, asegúrate que tu rostro puede verse con nitidez.</p>
-                        <input name ="photo" id="photo" type="file" onchange="showCropper();" accept="image/*" capture>
-                        <template>
-                            <img id="photoCropper" src="" alt="">
-
-                        </template>
-                        <!-- <canvas name="photo"></canvas> -->
-                        <!-- <img id="photoview" src="" alt=""> -->
+                    <div id="verinput" class="btn">Sube una foto</div>
+                    <div id="phcrop" class="comment-form-comment" style="display: none;">
+                        <p>Sube una foto (desde un dispositivo móvil se activará la cámara para que te hagas una). Tu rostro debe estar en primer plano. Una vez la hayas ajustado se mostrará una previsualización, asegúrate que tu rostro puede verse con nitidez.</p>
+                        <input id="upload" name="photo" type="file" accept="image/*" capture>
+                        <div id="upload-input">
+                            <div id="phdoscrop" class="btn"  style="display: none;">Ajustar Selección</div>
+                        </div>
                     </div>
                     <div class="form-submit">
                         <input name="submit" type="submit" id="submit" class="submit" value="Enviar Datos" onclick="myFunction()">
                     </div>
                 </form>
             </div>
-            <p id="demo"></p>
     <script src="script.js"></script>
 </body>
 </html>
