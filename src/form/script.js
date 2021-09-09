@@ -1,19 +1,34 @@
 var midata ={};
-function myFunction() {
-    var elements = document.getElementById("commentform").elements;
-    var obj ={};
-    for(var i = 0 ; i < elements.length ; i++){
-        var item = elements.item(i);
-        if ([item.name]=="photo"){
-            obj[item.name]=document.getElementById("photoview").src;
-        }
-        else{
-            obj[item.name] = item.value;
-        }
+var msrc;
+var srcurl;
+window.addEventListener("load", function () {
+    function sendData(form) {
+      var XHR = new XMLHttpRequest();
+      var FD = new FormData(form);
+      XHR.addEventListener("load", function(event) {
+          // TODO Change
+          //alert(event.target.responseText);
+        });
+        XHR.addEventListener("error", function(event) {
+            // TODO Change
+            //alert('Oups! Something goes wrong.');
+        });
+        //TODO Change
+        XHR.open("POST","devuelta.html",true)
+        XHR.setRequestHeader("Content-type","application/json;charset=UTF-8");
+      XHR.send(FD);
     }
-    midata= JSON.parse(JSON.stringify(obj));
-    console.log(JSON.stringify(midata));
-}
+    var forms = document.forms;
+    [].forEach.call(forms, function(form) {
+      form.addEventListener("submit", function (event) {
+        //event.preventDefault();
+        var xx=form.elements['photob64'];
+        xx.value=srcurl;
+        //alert(xx.value);
+        sendData(form);
+      })
+    });
+});
 // mostrar contenedor para input
 $("#verinput").click(function(){
     $("#phcrop").attr('style',"display:block;");
@@ -53,16 +68,28 @@ $('#phdoscrop').on('click', function () {
     }).then(function (image){
         $("#submit").attr("style","display:block");
         $("#phcrop").attr("style","display:none");
-        resizeBase64Img(image, 92, 92).then(function(newimg){$('#submit').before(newimg);});
+        resizeBase64Img(image, 92, 92).then(function(newimg){
+            $('#submit').before(newimg);
+            var formdata = new FormData();
+            formdata.append("image",msrc.split(",")[1]);
+            var requestOptions = {
+                method: 'POST',
+                body: formdata,
+                redirect: 'follow'
+            };
+            fetch("https://api.imgbb.com/1/upload?key=acdef283764fdf38d0e7c7ad9362a229\n",requestOptions)
+            .then(response => response.text())
+            .then(function(result){
+                var jx = JSON.parse(result);
+                srcurl = (jx.data.url);
+                console.log(srcurl);
+            })
+            .catch(error => console.log('error',error));
+            
         });
+    });
 });
 
-function senddata(data){
-    var xhttp=new XMLHttpRequest();
-    xhttp.open("POST","devuelta.html",true)
-    xhttp.setRequestHeader("Content-type","application/json;charset=UTF-8");
-    xhttp.send(data);
-}
 function resizeBase64Img(base64, width, height) {
         var canvas = document.createElement("canvas");
         canvas.width = width;
@@ -72,6 +99,7 @@ function resizeBase64Img(base64, width, height) {
         $("<img/>").attr("src", base64).load(function() {
             context.scale(width/this.width,  height/this.height);
             context.drawImage(this, 0, 0); 
+            msrc=canvas.toDataURL();
             deferred.resolve($("<img/>").attr({src: canvas.toDataURL(),id:"photoview",class:"imagen"}));               
          });
          return deferred.promise();    

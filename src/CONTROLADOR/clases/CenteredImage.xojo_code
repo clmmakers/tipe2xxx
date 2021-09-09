@@ -3,13 +3,13 @@ Protected Class CenteredImage
 Inherits Canvas
 	#tag Event
 		Sub Paint(g As Graphics, areas() As REALbasic.Rect)
-		  // Centering the owned picture on Canvas area
-		  g.CenterPicture(mPicture)
-		  
-		  // Drawing contour line
-		  g.DrawingColor = &ccccccc
-		  g.PenSize = 1
-		  g.DrawRectangle(0, 0, g.Width, g.Height)
+		  '// Centering the owned picture on Canvas area
+		  'g.CenterPicture(mPicture)
+		  '
+		  '// Drawing contour line
+		  'g.DrawingColor = &ccccccc
+		  'g.PenSize = 1
+		  'g.DrawRectangle(0, 0, g.Width, g.Height)
 		End Sub
 	#tag EndEvent
 

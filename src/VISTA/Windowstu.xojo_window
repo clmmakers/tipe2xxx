@@ -10,7 +10,7 @@ Begin Window Windowstu
    HasBackColor    =   False
    Height          =   490
    ImplicitInstance=   True
-   LiveResize      =   True
+   LiveResize      =   "True"
    MacProcID       =   0
    MaxHeight       =   32000
    MaximizeButton  =   False
@@ -53,7 +53,7 @@ Begin Window Windowstu
       Top             =   50
       Transparent     =   False
       Underline       =   False
-      Value           =   3
+      Value           =   0
       Visible         =   True
       Width           =   900
       Begin ListboxAlternate listobservaciones

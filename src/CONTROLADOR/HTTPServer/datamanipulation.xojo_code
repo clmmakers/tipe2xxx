@@ -8,21 +8,24 @@ Protected Module datamanipulation
 		      for i as integer = 0 to mdict.Ubound
 		        if not mdict(i).value("submit")=1 then
 		          app.appCc_Cursos.CC_edit_grupo1.Listbox1.AddRow()
-		          app.appCc_Cursos.CC_edit_grupo1.Listbox1.CellType(app.appCc_Cursos.CC_edit_grupo1.Listbox1.LastIndex,0)=Listbox.TypeCheckbox
-		          app.appCc_Cursos.CC_edit_grupo1.Listbox1.Cell(app.appCc_Cursos.CC_edit_grupo1.Listbox1.LastIndex,1)=mdict(i).Value("surname").StringValue
-		          app.appCc_Cursos.CC_edit_grupo1.Listbox1.Cell(app.appCc_Cursos.CC_edit_grupo1.Listbox1.LastIndex,2)=mdict(i).Value("name").StringValue
-		          app.appCc_Cursos.CC_edit_grupo1.Listbox1.Cell(app.appCc_Cursos.CC_edit_grupo1.Listbox1.LastIndex,3)=mdict(i).Value("birthdate").StringValue
-		          app.appCc_Cursos.CC_edit_grupo1.Listbox1.Cell(app.appCc_Cursos.CC_edit_grupo1.Listbox1.LastIndex,4)=mdict(i).Value("papaname").StringValue
-		          app.appCc_Cursos.CC_edit_grupo1.Listbox1.Cell(app.appCc_Cursos.CC_edit_grupo1.Listbox1.LastIndex,5)=mdict(i).Value("mamaname").StringValue
-		          app.appCc_Cursos.CC_edit_grupo1.Listbox1.Cell(app.appCc_Cursos.CC_edit_grupo1.Listbox1.LastIndex,6)=mdict(i).Value("direccion").StringValue
-		          app.appCc_Cursos.CC_edit_grupo1.Listbox1.Cell(app.appCc_Cursos.CC_edit_grupo1.Listbox1.LastIndex,7)=mdict(i).Value("tlfcasa").StringValue
-		          app.appCc_Cursos.CC_edit_grupo1.Listbox1.Cell(app.appCc_Cursos.CC_edit_grupo1.Listbox1.LastIndex,8)=mdict(i).Value("movilpa").StringValue
-		          app.appCc_Cursos.CC_edit_grupo1.Listbox1.Cell(app.appCc_Cursos.CC_edit_grupo1.Listbox1.LastIndex,9)=mdict(i).Value("movilma").StringValue
-		          app.appCc_Cursos.CC_edit_grupo1.Listbox1.Cell(app.appCc_Cursos.CC_edit_grupo1.Listbox1.LastIndex,10)=mdict(i).Value("email").StringValue
-		          app.appCc_Cursos.CC_edit_grupo1.Listbox1.Cell(app.appCc_Cursos.CC_edit_grupo1.Listbox1.LastIndex,11)=mdict(i).Value("comment").StringValue
-		          app.appCc_Cursos.CC_edit_grupo1.Listbox1.Cell(app.appCc_Cursos.CC_edit_grupo1.Listbox1.LastIndex,12)=mdict(i).Value("nacionalidad").StringValue
-		          app.appCc_Cursos.CC_edit_grupo1.Listbox1.Cell(app.appCc_Cursos.CC_edit_grupo1.Listbox1.LastIndex,13)=mdict(i).Value("grupo").StringValue
-		          //app.appCc_Cursos.CC_edit_grupo1.Listbox1.Cell(app.appCc_Cursos.CC_edit_grupo1.Listbox1.LastRowIndex,14)=mdict(i).Value("photo").StringValue
+		          app.appCc_Cursos.CC_edit_grupo1.Listbox1.CellTypeAt(app.appCc_Cursos.CC_edit_grupo1.Listbox1.LastAddedRowIndex,0)=Listbox.CellTypes.CheckBox
+		          if mdict(i).Value("photob64")>"" then
+		            app.appCc_Cursos.CC_edit_grupo1.Listbox1.CellTagAt(app.appCc_Cursos.CC_edit_grupo1.Listbox1.LastAddedRowIndex,1)=mdict(i).Value("photob64").StringValue
+		          end if
+		          app.appCc_Cursos.CC_edit_grupo1.Listbox1.CellValueAt(app.appCc_Cursos.CC_edit_grupo1.Listbox1.LastAddedRowIndex,2)=mdict(i).Value("surname").StringValue
+		          app.appCc_Cursos.CC_edit_grupo1.Listbox1.CellValueAt(app.appCc_Cursos.CC_edit_grupo1.Listbox1.LastAddedRowIndex,3)=mdict(i).Value("name").StringValue
+		          app.appCc_Cursos.CC_edit_grupo1.Listbox1.CellValueAt(app.appCc_Cursos.CC_edit_grupo1.Listbox1.LastAddedRowIndex,4)=mdict(i).Value("birthdate").StringValue
+		          app.appCc_Cursos.CC_edit_grupo1.Listbox1.CellValueAt(app.appCc_Cursos.CC_edit_grupo1.Listbox1.LastAddedRowIndex,5)=mdict(i).Value("papaname").StringValue
+		          app.appCc_Cursos.CC_edit_grupo1.Listbox1.CellValueAt(app.appCc_Cursos.CC_edit_grupo1.Listbox1.LastAddedRowIndex,6)=mdict(i).Value("mamaname").StringValue
+		          app.appCc_Cursos.CC_edit_grupo1.Listbox1.CellValueAt(app.appCc_Cursos.CC_edit_grupo1.Listbox1.LastAddedRowIndex,7)=mdict(i).Value("direccion").StringValue
+		          app.appCc_Cursos.CC_edit_grupo1.Listbox1.CellValueAt(app.appCc_Cursos.CC_edit_grupo1.Listbox1.LastAddedRowIndex,8)=mdict(i).Value("tlfcasa").StringValue
+		          app.appCc_Cursos.CC_edit_grupo1.Listbox1.CellValueAt(app.appCc_Cursos.CC_edit_grupo1.Listbox1.LastAddedRowIndex,9)=mdict(i).Value("movilpa").StringValue
+		          app.appCc_Cursos.CC_edit_grupo1.Listbox1.CellValueAt(app.appCc_Cursos.CC_edit_grupo1.Listbox1.LastAddedRowIndex,10)=mdict(i).Value("movilma").StringValue
+		          app.appCc_Cursos.CC_edit_grupo1.Listbox1.CellValueAt(app.appCc_Cursos.CC_edit_grupo1.Listbox1.LastAddedRowIndex,11)=mdict(i).Value("email").StringValue
+		          app.appCc_Cursos.CC_edit_grupo1.Listbox1.CellValueAt(app.appCc_Cursos.CC_edit_grupo1.Listbox1.LastAddedRowIndex,12)=mdict(i).Value("comment").StringValue
+		          app.appCc_Cursos.CC_edit_grupo1.Listbox1.CellValueAt(app.appCc_Cursos.CC_edit_grupo1.Listbox1.LastAddedRowIndex,13)=mdict(i).Value("nacionalidad").StringValue
+		          app.appCc_Cursos.CC_edit_grupo1.Listbox1.CellValueAt(app.appCc_Cursos.CC_edit_grupo1.Listbox1.LastAddedRowIndex,14)=mdict(i).Value("grupo").StringValue
+		          
 		          
 		          mdict(i).Value("submit")=1
 		        end if
