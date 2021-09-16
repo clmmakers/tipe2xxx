@@ -10,7 +10,30 @@ Protected Module datamanipulation
 		          app.appCc_Cursos.CC_edit_grupo1.Listbox1.AddRow()
 		          app.appCc_Cursos.CC_edit_grupo1.Listbox1.CellTypeAt(app.appCc_Cursos.CC_edit_grupo1.Listbox1.LastAddedRowIndex,0)=Listbox.CellTypes.CheckBox
 		          if mdict(i).Value("photob64")>"" then
-		            app.appCc_Cursos.CC_edit_grupo1.Listbox1.CellTagAt(app.appCc_Cursos.CC_edit_grupo1.Listbox1.LastAddedRowIndex,1)=mdict(i).Value("photob64").StringValue
+		            dim url as string=mdict(i).Value("photob64")
+		            Var filenameLength As Integer
+		            For z As Integer = url.Length - 1 DownTo 0
+		              If url.Middle(z, 1) = "/" Then
+		                filenameLength = url.Length - z
+		                Exit For
+		              End If
+		            Next
+		            Var filename As String
+		            filename = url.Right(filenameLength)
+		            
+		            var foldertemp As FolderItem
+		            foldertemp=Globales.pathappdata.Child("temp")
+		            If Not foldertemp.Exists Then
+		              foldertemp.CreateFolder
+		            End If
+		            var path as string = foldertemp.nativepath
+		            dim command as string = "curl "+ url+" --output  ~/Library/Application\ Support/Tipe/temp"+filename+" --silent"
+		            var s as new Shell
+		            s.Execute(command)
+		            
+		            
+		            
+		            app.appCc_Cursos.CC_edit_grupo1.Listbox1.CellTagAt(app.appCc_Cursos.CC_edit_grupo1.Listbox1.LastAddedRowIndex,1)=filename
 		          end if
 		          app.appCc_Cursos.CC_edit_grupo1.Listbox1.CellValueAt(app.appCc_Cursos.CC_edit_grupo1.Listbox1.LastAddedRowIndex,2)=mdict(i).Value("surname").StringValue
 		          app.appCc_Cursos.CC_edit_grupo1.Listbox1.CellValueAt(app.appCc_Cursos.CC_edit_grupo1.Listbox1.LastAddedRowIndex,3)=mdict(i).Value("name").StringValue

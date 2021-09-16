@@ -652,7 +652,7 @@ Begin ContainerControl CC_edit_grupo
          Index           =   -2147483648
          InitialParent   =   "PagePanel1"
          Italic          =   False
-         Left            =   398
+         Left            =   288
          LockBottom      =   False
          LockedInPosition=   False
          LockLeft        =   False
@@ -716,7 +716,7 @@ Begin ContainerControl CC_edit_grupo
          Index           =   -2147483648
          InitialParent   =   "PagePanel1"
          Italic          =   False
-         Left            =   40
+         Left            =   24
          LockBottom      =   False
          LockedInPosition=   False
          LockLeft        =   True
@@ -733,7 +733,7 @@ Begin ContainerControl CC_edit_grupo
          Underline       =   False
          Value           =   True
          Visible         =   True
-         Width           =   281
+         Width           =   252
       End
       Begin ListBoxAlternate Listbox1
          AllowAutoDeactivate=   False
@@ -833,7 +833,7 @@ Begin ContainerControl CC_edit_grupo
          Index           =   -2147483648
          InitialParent   =   "PagePanel1"
          Italic          =   False
-         Left            =   533
+         Left            =   574
          LockBottom      =   False
          LockedInPosition=   False
          LockLeft        =   False
@@ -849,7 +849,7 @@ Begin ContainerControl CC_edit_grupo
          Transparent     =   False
          Underline       =   False
          Visible         =   True
-         Width           =   182
+         Width           =   159
       End
       Begin PushButton PushButton4
          AllowAutoDeactivate=   True
@@ -882,6 +882,38 @@ Begin ContainerControl CC_edit_grupo
          Underline       =   False
          Visible         =   True
          Width           =   182
+      End
+      Begin PushButton btnseljson
+         AllowAutoDeactivate=   True
+         Bold            =   False
+         Cancel          =   False
+         Caption         =   "#translat.k_seleccionejson"
+         Default         =   False
+         Enabled         =   True
+         FontName        =   "System"
+         FontSize        =   0.0
+         FontUnit        =   0
+         Height          =   26
+         Index           =   -2147483648
+         InitialParent   =   "PagePanel1"
+         Italic          =   False
+         Left            =   423
+         LockBottom      =   False
+         LockedInPosition=   False
+         LockLeft        =   False
+         LockRight       =   True
+         LockTop         =   True
+         MacButtonStyle  =   0
+         Scope           =   2
+         TabIndex        =   6
+         TabPanelIndex   =   4
+         TabStop         =   True
+         Tooltip         =   ""
+         Top             =   121
+         Transparent     =   False
+         Underline       =   False
+         Visible         =   True
+         Width           =   139
       End
    End
    Begin GroupBox GroupBox1
@@ -1326,6 +1358,36 @@ End
 	#tag EndMethod
 
 	#tag Method, Flags = &h21
+		Private Function copyPhToDocsFolder(file as Picture, id as integer) As string
+		  dim d as new date
+		  dim year as integer = d.Year
+		  
+		  
+		  Dim folderdocs As FolderItem
+		  folderdocs = SpecialFolder.ApplicationData.Child(App.kAppName).Child("photos")
+		  If Not folderdocs.Exists Then
+		    folderdocs.CreateAsFolder
+		  End If
+		  
+		  try
+		    var fff as FolderItem
+		    var namepic as string
+		    namepic = str(year)+str(id)+".png"
+		    fff=folderdocs.child(namepic)
+		    file.Save(fff, Picture.SaveAsPNG)
+		    var ruta as string
+		    ruta = fff.ShellPath
+		    return ruta
+		  Catch error as NilObjectException
+		    MsgBox (translat.k_txtnohacargadodocument)
+		    
+		  end try
+		  
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h21
 		Private Sub desmatricular()
 		  dim row as integer
 		  row=Listalumnosmatencurso.ListIndex
@@ -1553,6 +1615,10 @@ End
 
 	#tag Property, Flags = &h0
 		estubasictemp As estudiantebasico
+	#tag EndProperty
+
+	#tag Property, Flags = &h1
+		Protected ff As FolderItem
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
@@ -1853,12 +1919,24 @@ End
 		        mstud.movilpa=val(trim(listbox1.CellValueAt(i,9)))
 		        mstud.movilma=val(trim(listbox1.CellValueAt(i,10)))
 		        mstud.emailnene=trim(listbox1.CellValueAt(i,11))
-		        mstud.observaciones=trim(listbox1.CellValueAt(i,12))
+		        mstud.observaciones=trim(listbox1.CellValueAt(i,12))+EndOfLine+listbox1.CellValueAt(i,1)
 		        mstud.nacionalidad=parseartildes(listbox1.CellValueAt(i,13).ToText)
 		        mstud.gruporef=parseartildes(Listbox1.CellValueAt(i,14).ToText)
 		        
 		        
 		        if mstud.guardar Then
+		          if Listbox1.CellTagAt(i,1)>Nil then
+		            var id as Integer= mstud.id_alumno
+		            var foldertemp as new FolderItem
+		            foldertemp = ff.Child(Listbox1.CellTagAt(i,1))
+		            var pic as Picture = Picture.Open(foldertemp)
+		            mstud.photopath=copyPhToDocsFolder(pic,id)
+		            if not mstud.guardar then
+		              MsgBox (translat.k_errorconectdb)
+		            end if
+		          end if
+		          
+		          
 		          Listalumnosmatencurso.AddRow
 		          Listalumnosmatencurso.Cell(Listalumnosmatencurso.LastIndex,0)=str(mstud.id_alumno)
 		          Listalumnosmatencurso.Cell(Listalumnosmatencurso.LastIndex,1)=name
@@ -1935,9 +2013,9 @@ End
 		    g.FillRect(0,0,g.Width,g.Height)
 		    
 		    if column=1 and me.CellTagAt(row,1)>"" then
-		      dim mb as String=me.CellTagAt(row,column)
-		      dim pic as Picture
-		      pic= urltopicture(mb)
+		      var foldertemp As new FolderItem
+		      foldertemp=ff.Child(me.CellTagAt(row,1))
+		      dim pic as Picture=Picture.Open(foldertemp)
 		      g.DrawPicture(pic,2,1,30,30,0,0,90,90)
 		      return true
 		    end if
@@ -2016,6 +2094,65 @@ End
 	#tag Event
 		Sub Action()
 		  PagePanel1.Value=3
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events btnseljson
+	#tag Event
+		Sub Action()
+		  '
+		  'dim f as FolderItem
+		  '
+		  'ListBox1.DeleteAllRows
+		  '
+		  'f = GetOpenFolderItem(FileTypesp.csv)
+		  '
+		  'if f is nil then return
+		  '
+		  ''CSVParser1.treatFirstLineAsHeaders = CheckBox1.Value
+		  '
+		  'csvParser1.parse(f)
+		  '
+		  'if CheckBox1.Value then
+		  'Listbox1.RemoveRow(0)
+		  'end if
+		  'setcontrolimportacion(2)
+		  
+		  ff= FolderItem.ShowSelectFolderDialog
+		  var file as FolderItem = ff.Child("import.json")
+		  
+		  var t as TextInputStream
+		  var textloaded as text
+		  var pupils() as auto
+		  try
+		    t= TextInputStream.Open(file)
+		    textloaded = t.ReadAll.ToText
+		    pupils=ParseJSON(textloaded)
+		  Catch err as IOException
+		    MessageBox("Asegúrese de haber seleccionado la carpeta de importación correcta que general el servicio Web")
+		  end try
+		  Listbox1.RemoveAllRows
+		  
+		  for each estudent as Dictionary in pupils
+		    Listbox1.AddRow()
+		    Listbox1.CellTypeAt(Listbox1.LastRowIndex,0)=Listbox.CellTypes.CheckBox
+		    Listbox1.CellTagAt(Listbox1.LastRowIndex,1)=estudent.Value("photob64")
+		    Listbox1.CellValueAt(Listbox1.LastRowIndex,2)=estudent.Value("surname")
+		    Listbox1.CellValueAt(Listbox1.LastRowIndex,3)=estudent.Value("name")
+		    Listbox1.CellValueAt(Listbox1.LastRowIndex,4)=estudent.Value("birthdate")
+		    Listbox1.CellValueAt(Listbox1.LastRowIndex,5)=estudent.Value("papaname")
+		    Listbox1.CellValueAt(Listbox1.LastRowIndex,6)=estudent.Value("mamaname")
+		    Listbox1.CellValueAt(Listbox1.LastRowIndex,7)=estudent.Value("direccion")
+		    Listbox1.CellValueAt(Listbox1.LastRowIndex,8)=estudent.Value("tlfcasa")
+		    Listbox1.CellValueAt(Listbox1.LastRowIndex,9)=estudent.Value("movilpa")
+		    Listbox1.CellValueAt(Listbox1.LastRowIndex,10)=estudent.Value("movilma")
+		    Listbox1.CellValueAt(Listbox1.LastRowIndex,11)=estudent.Value("email")
+		    Listbox1.CellValueAt(Listbox1.LastRowIndex,12)=estudent.Value("comment")
+		    Listbox1.CellValueAt(Listbox1.LastRowIndex,13)=estudent.Value("nacionalidad")
+		    Listbox1.CellValueAt(Listbox1.LastRowIndex,14)=estudent.Value("grupo")
+		    
+		  next estudent
+		  checkalumnosforimport
 		End Sub
 	#tag EndEvent
 #tag EndEvents

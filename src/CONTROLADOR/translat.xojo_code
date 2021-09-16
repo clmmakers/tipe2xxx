@@ -1209,6 +1209,11 @@ Protected Module translat
 		#Tag Instance, Platform = Any, Language = en, Definition  = \"Select .csv File"
 	#tag EndConstant
 
+	#tag Constant, Name = k_seleccionejson, Type = String, Dynamic = True, Default = \"Seleccione .json", Scope = Protected
+		#Tag Instance, Platform = Any, Language = es, Definition  = \"Seleccione .json"
+		#Tag Instance, Platform = Any, Language = en, Definition  = \"Select .json File"
+	#tag EndConstant
+
 	#tag Constant, Name = k_selecciongrupomat, Type = String, Dynamic = True, Default = \"Seleccione Grupo/Materia...", Scope = Protected
 		#Tag Instance, Platform = Any, Language = es, Definition  = \"Seleccione Grupo/Materia\xE2\x80\xA6"
 		#Tag Instance, Platform = Any, Language = en, Definition  = \"Select Class\xE2\x80\xA6"
@@ -1774,9 +1779,9 @@ Protected Module translat
 		#Tag Instance, Platform = Any, Language = en, Definition  = \"The file seems to contain well-formed material\x2C if you perform the import\x2C browse through its contents to be sure they are correct"
 	#tag EndConstant
 
-	#tag Constant, Name = k_txtlineacabeceras, Type = String, Dynamic = True, Default = \"Tratar primera l\xC3\xADnea como Cabeceras", Scope = Protected
-		#Tag Instance, Platform = Any, Language = es, Definition  = \"Tratar primera l\xC3\xADnea como Cabeceras"
-		#Tag Instance, Platform = Any, Language = en, Definition  = \"Treat first line as Headers"
+	#tag Constant, Name = k_txtlineacabeceras, Type = String, Dynamic = True, Default = \"Primera l\xC3\xADnea como Cabeceras (csv)", Scope = Protected
+		#Tag Instance, Platform = Any, Language = es, Definition  = \"Primera l\xC3\xADnea como Cabeceras (csv)"
+		#Tag Instance, Platform = Any, Language = en, Definition  = \"Treat first line as Headers (csv)"
 	#tag EndConstant
 
 	#tag Constant, Name = k_txtmateriaasignada, Type = String, Dynamic = False, Default = \"Esta Materia est\xC3\xA1 asignada actualmente a ", Scope = Protected
