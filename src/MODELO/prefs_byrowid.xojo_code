@@ -62,36 +62,6 @@ Protected Class prefs_byrowid
 		      DATADB.Commit
 		    End If
 		    
-		    if pestmedio<36 then //utilizo pestmedio para cargar form en la raiz, necesario para el servidor de formularios
-		      //creo carpeta form
-		      Dim mformfolder as FolderItem
-		      mformfolder=globales.pathappdata.Child("form")
-		      if not mformfolder.Exists then
-		        mformfolder.CreateAsFolder
-		      End If
-		      //creo index.html, devuelta.html, script.js y style.css
-		      dim file as FolderItem=mformfolder.Child("devuelta.html")
-		      dim output as TextOutputStream
-		      output=TextOutputStream.Create(file)
-		      output.Write(devuelta)
-		      output.Close
-		      file = mformfolder.Child("index.html")
-		      output=TextOutputStream.Create(file)
-		      output.Write(index)
-		      output.Close
-		      file = mformfolder.Child("script.js")
-		      output=TextOutputStream.Create(file)
-		      output.Write(script)
-		      output.close
-		      file = mformfolder.Child("style.css")
-		      output=TextOutputStream.Create(file)
-		      output.Write(style)
-		      output.close
-		      DATADB.SQLExecute("ALTER TABLE alumno ADD agrupacion TEXT")
-		      DATADB.SQLExecute("UPDATE prefs set pestmedio=36")
-		      DATADB.Commit
-		      pestmedio=36
-		    End If
 		    if pestmedio<37 then //utilizo pestmedio para cargar tabla consolcalif 
 		      DATADB.SQLExecute("CREATE TABLE consolcalif (id INTEGER PRIMARY KEY AUTOINCREMENT, id_alumno_rel INTEGER REFERENCES alumno (id_alumno) ON DELETE CASCADE, id_grupomat_rel INTEGER REFERENCES grupo_materia (id_grupo_materia) ON DELETE CASCADE, fechaconsolidacion TEXT, id_periodoeval_rel INTEGER REFERENCES periodoseval (id_pereval) ON DELETE CASCADE, nota_consol INTEGER, nota_manual INTEGER DEFAULT(-1),id_mat_rel INTEGER REFERENCES materia (id_materia) ON DELETE CASCADE, col1 TEXT)")
 		      DATADB.SQLExecute("UPDATE prefs set pestmedio=37")

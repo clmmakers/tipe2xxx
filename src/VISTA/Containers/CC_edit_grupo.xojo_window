@@ -1270,6 +1270,15 @@ Begin ContainerControl CC_edit_grupo
       TabPanelIndex   =   0
       treatFirstLineAsHeaders=   False
    End
+   Begin Timer ReadServerDataTimer
+      Enabled         =   True
+      Index           =   -2147483648
+      LockedInPosition=   False
+      Period          =   10000
+      RunMode         =   0
+      Scope           =   0
+      TabPanelIndex   =   0
+   End
 End
 #tag EndWindow
 
@@ -1277,7 +1286,17 @@ End
 	#tag Event
 		Sub Close()
 		  if serveractive then
-		    Socket.StopListening
+		    //Socket.StopListening
+		    #if TargetMacOS then
+		      var sh as new shell
+		      try
+		        sh.Execute("pkill xpws")
+		      end try
+		    #else
+		      try
+		        sh.Execute("tskill xpws")
+		      end try
+		    #endif
 		    MsgBox ("HEY! he apagado el servidor automáticamente!")
 		  end if
 		End Sub
@@ -1562,18 +1581,21 @@ End
 		    CheckBox1.Value= False
 		    Checkbox1.Enabled= False
 		    btnselcsv.Enabled=False
+		    btnseljson.Enabled=False
 		    //btnimportalum.Enabled=true
 		  case 2 //click on csv import btn
 		    'btnselcsv.Enabled=True
 		    CheckBox1.Value= True
 		    Checkbox1.Enabled= True
 		    btnwebserv.Enabled=True
+		    btnseljson.Enabled=true
 		    //btnimportalum.Enabled=True
 		    checkalumnosforimport
 		  case 3 //initial state
 		    CheckBox1.Value= True
 		    Checkbox1.Enabled= True
 		    btnselcsv.Enabled=True
+		    btnseljson.Enabled=true
 		    btnwebserv.Enabled=True
 		    //btnimportalum.Enabled=False
 		    checkalumnosforimport
@@ -1664,16 +1686,8 @@ End
 		Private nameact As String
 	#tag EndProperty
 
-	#tag Property, Flags = &h0
-		RequesterIndex As MyRequesterIndex
-	#tag EndProperty
-
 	#tag Property, Flags = &h1
 		Protected serveractive As Boolean = False
-	#tag EndProperty
-
-	#tag Property, Flags = &h0
-		Socket As MyHTTPServerSocket
 	#tag EndProperty
 
 	#tag Property, Flags = &h21
@@ -1871,7 +1885,7 @@ End
 		  if CheckBox1.Value then
 		    Listbox1.RemoveRow(0)
 		  end if
-		  setcontrolimportacion(2)
+		  setcontrolimportacion(3)
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -2040,53 +2054,73 @@ End
 #tag Events btnwebserv
 	#tag Event
 		Sub Action()
-		  If Me.Caption = translat.k_webservicestart Then
-		    Dim f As FolderItem = SpecialFolder.ApplicationData.Child("Tipe").Child("form")
-		    //SelectFolder
-		    // dim f as FolderItem= GetFolderItem
-		    If f <> Nil Then
-		      If Socket = Nil Then
-		        Socket = New MyHTTPServerSocket
-		        Socket.AddURL("/index.html", RequesterIndex)
-		      End If
+		  /////////////
+		  if me.Caption= translat.k_webservicestart then
+		    #if TargetMacOS then
+		      var sh as new shell
+		      'var f as FolderItem=SpecialFolder.ApplicationData
+		      var f as FolderItem=globales.pathappdata
+		      var com as string = f.ShellPath+"/xpws"
+		      try
+		        sh.Execute("."+com)
+		      end try
 		      
-		      'dim n as NetworkInterface
-		      'n=System.getnetworkinterface (0)
-		      if interfaces.Ubound<>-1 then
-		        Socket.AddURL("/folder/", f)
-		        Socket.Port = 8383
-		        Socket.MaximumSocketsConnected=25
-		        Socket.Listen
-		        dim n as Integer= interfaces.Ubound
-		        if interfaces.Ubound=0 then
-		          MsgBox (translat.k_txt_infowebserver + interfaces(0).IpAddress +":" +str(Socket.Port)+"/")
-		          //ShowURL("http://127.0.0.1:8080/")
-		        else
-		          dim s as string
-		          for x as integer= 0 to interfaces.Ubound
-		            s=s + interfaces(x).IpAddress + ":"+ str(Socket.Port)+"/"+EndOfLine
-		          next
-		          MsgBox (translat.k_txt_infowebserverplus + EndOfLine + s)
-		        End If
-		        Me.Caption = translat.k_webservicestop
-		        setcontrolimportacion(1)
-		        serveractive=True
+		    #else
+		      
+		    #endif
+		    if interfaces.Ubound<>-1 then
+		      if interfaces.Ubound=0 then
+		        MsgBox (translat.k_txt_infowebserver + interfaces(0).IpAddress +":3000")
+		        
 		      else
-		        MsgBox (translat.k_text_webservererror)
+		        dim s as string
+		        for x as integer= 0 to interfaces.Ubound
+		          s=s + interfaces(x).IpAddress + ":3000"+EndOfLine
+		        next
+		        MsgBox (translat.k_txt_infowebserverplus + EndOfLine + s)
 		      End If
+		      Me.Caption = translat.k_webservicestop
+		      serveractive=True
+		    else
+		      MsgBox (translat.k_text_webservererror)
 		    End If
+		    Listbox1.RemoveAllRows
+		    ReadServerDataTimer.RunMode=timer.RunModes.Multiple
+		    setcontrolimportacion(1)
 		    
 		  Else
-		    Socket.StopListening
-		    Me.Caption = translat.k_webservicestart
-		    setcontrolimportacion(3)
-		    serveractive=False
-		  End If
-		End Sub
-	#tag EndEvent
-	#tag Event
-		Sub Open()
-		  RequesterIndex = New MyRequesterIndex
+		    dim prompt as new MessageDialog
+		    prompt.Message=translat.k_txtquierestopserver
+		    prompt.ActionButton.Caption =translat.k_eliminar
+		    prompt.CancelButton.Visible = True
+		    prompt.CancelButton.Caption=translat.k_cancelar
+		    
+		    dim result as MessageDialogButton
+		    result= prompt.ShowModalWithin(self)
+		    
+		    if result=prompt.ActionButton then
+		      var sh as new shell
+		      #if TargetMacOS then
+		        try
+		          sh.Execute("pkill xpws")
+		        end try
+		      #else
+		        try
+		          sh.Execute("tskill xpws")
+		        end try
+		      #endif
+		      Listbox1.RemoveAllRows
+		      checkalumnosforimport
+		      Me.Caption = translat.k_webservicestart
+		      serveractive=False
+		      setcontrolimportacion(3)
+		      ReadServerDataTimer.RunMode=timer.RunModes.Off
+		      
+		    end if
+		    
+		    
+		    
+		  end if
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -2100,25 +2134,10 @@ End
 #tag Events btnseljson
 	#tag Event
 		Sub Action()
-		  '
-		  'dim f as FolderItem
-		  '
-		  'ListBox1.DeleteAllRows
-		  '
-		  'f = GetOpenFolderItem(FileTypesp.csv)
-		  '
-		  'if f is nil then return
-		  '
-		  ''CSVParser1.treatFirstLineAsHeaders = CheckBox1.Value
-		  '
-		  'csvParser1.parse(f)
-		  '
-		  'if CheckBox1.Value then
-		  'Listbox1.RemoveRow(0)
-		  'end if
-		  'setcontrolimportacion(2)
 		  
 		  ff= FolderItem.ShowSelectFolderDialog
+		  Listbox1.RemoveAllRows
+		  if ff is nil then Return
 		  var file as FolderItem = ff.Child("import.json")
 		  
 		  var t as TextInputStream
@@ -2129,9 +2148,9 @@ End
 		    textloaded = t.ReadAll.ToText
 		    pupils=ParseJSON(textloaded)
 		  Catch err as IOException
-		    MessageBox("Asegúrese de haber seleccionado la carpeta de importación correcta que general el servicio Web")
+		    MessageBox("Asegúrese de haber seleccionado la carpeta de importación correcta que genera el servicio Web")
 		  end try
-		  Listbox1.RemoveAllRows
+		  
 		  
 		  for each estudent as Dictionary in pupils
 		    Listbox1.AddRow()
@@ -2216,6 +2235,64 @@ End
 		    
 		    Listbox1.Cell(Listbox1.LastIndex,i+1)=s
 		  next
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events ReadServerDataTimer
+	#tag Event
+		Sub Action()
+		  if not serveractive then
+		    me.RunMode=timer.RunModes.Off
+		  end if
+		  var t as TextInputStream
+		  var textloaded as text
+		  var pupils() as auto
+		  
+		  try
+		    'ff= FolderItem.ShowSelectFolderDialog
+		    var file as FolderItem = SpecialFolder.ApplicationData.Child("Tipe").Child("Server").Child("import.json")
+		    ff =SpecialFolder.ApplicationData.Child("Tipe").Child("Server")
+		    
+		    t= TextInputStream.Open(file)
+		    textloaded = t.ReadAll.ToText
+		    pupils=ParseJSON(textloaded)
+		    
+		    'MessageBox("Asegúrese de haber seleccionado la carpeta de importación correcta que genera el servicio Web")
+		    
+		    'Listbox1.RemoveAllRows
+		    if pupils.Ubound>-1 then
+		      for each estudent as Dictionary in pupils
+		        var coincidencias as Integer = 0
+		        for i as integer=0 to Listbox1.RowCount-1
+		          if Listbox1.CellTagAt(i,1)=estudent.Value("photob64") then
+		            coincidencias = 1
+		            Continue for i
+		          end if
+		        next 
+		        if coincidencias = 0 Then
+		          Listbox1.AddRow()
+		          Listbox1.CellTypeAt(Listbox1.LastRowIndex,0)=Listbox.CellTypes.CheckBox
+		          Listbox1.CellTagAt(Listbox1.LastRowIndex,1)=estudent.Value("photob64")
+		          Listbox1.CellValueAt(Listbox1.LastRowIndex,2)=estudent.Value("surname")
+		          Listbox1.CellValueAt(Listbox1.LastRowIndex,3)=estudent.Value("name")
+		          Listbox1.CellValueAt(Listbox1.LastRowIndex,4)=estudent.Value("birthdate")
+		          Listbox1.CellValueAt(Listbox1.LastRowIndex,5)=estudent.Value("papaname")
+		          Listbox1.CellValueAt(Listbox1.LastRowIndex,6)=estudent.Value("mamaname")
+		          Listbox1.CellValueAt(Listbox1.LastRowIndex,7)=estudent.Value("direccion")
+		          Listbox1.CellValueAt(Listbox1.LastRowIndex,8)=estudent.Value("tlfcasa")
+		          Listbox1.CellValueAt(Listbox1.LastRowIndex,9)=estudent.Value("movilpa")
+		          Listbox1.CellValueAt(Listbox1.LastRowIndex,10)=estudent.Value("movilma")
+		          Listbox1.CellValueAt(Listbox1.LastRowIndex,11)=estudent.Value("email")
+		          Listbox1.CellValueAt(Listbox1.LastRowIndex,12)=estudent.Value("comment")
+		          Listbox1.CellValueAt(Listbox1.LastRowIndex,13)=estudent.Value("nacionalidad")
+		          Listbox1.CellValueAt(Listbox1.LastRowIndex,14)=estudent.Value("grupo")
+		        end if
+		        checkalumnosforimport
+		        
+		      next estudent
+		    end if
+		  Catch err as IOException
+		  end try
 		End Sub
 	#tag EndEvent
 #tag EndEvents
