@@ -1,0 +1,27 @@
+{
+  "name": "xpws",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "bin": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "pkg": {
+    "assets": [
+      "views/*",
+      "public/**/*"
+    ],
+    "targets": [
+      "macos-x64"
+    ]
+  },
+  "author": "clmMakers",
+  "license": "ISC",
+  "dependencies": {
+    "@moebius/http-graceful-shutdown": "^1.1.0",
+    "express": "^4.17.1",
+    "fs-extra": "^10.0.0",
+    "pug": "^3.0.2"
+  }
+}

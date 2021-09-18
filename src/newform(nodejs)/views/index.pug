@@ -1,0 +1,56 @@
+
+extends base.pug
+
+block content
+  .comment-section
+    h1.comment-reply-title Introduce tus datos personales -Tipe Gradebook Server-
+    form#commentform.comment-form(action='/devuelta', method='POST')
+      .comment-form-name
+        input#name(placeholder='Nombre *', name='name', type='text', pattern='^[^0-9]+$', size='30', maxlength='245', required)
+        label(for='name', data-help='No utilices abreviaturas') Nombre
+      .comment-form-surname
+        input#surname(placeholder='Apellidos *', name='surname', type='text', size='30', maxlength='245', required)
+        label(for='surname', data-help='No utilices abreviaturas') Apellidos
+      .comment-form-papas
+        input#papa(placeholder='Padre/Tutor *', name='papaname', type='text', pattern='^[^0-9]+$', size='50', maxlength='245', required)
+        label(for='papa', data-help='Nombre y Apellido') Padre/Tutor
+      .comment-form-papas
+        input#mama(placeholder='Madre/Tutora *', name='mamaname', type='text', pattern='^[^0-9]+$', size='50', maxlength='245', required)
+        label(for='mama', data-help='Nombre y Apellido') Madre/Tutora
+      .comment-form-papas
+        input#grupo(placeholder='Grupo *', name='grupo', type='text', pattern='^[-a-zA-Z0-9@\.+_]+$', size='10', maxlength='20', required)
+        label(for='grupo', data-help='Indica tu grupo asignado') Grupo
+      .comment-form-date
+        input#namimiento(name='birthdate', type='date', width='200px', required)
+        label(for='nacimiento', data-help='Asegúrate') Fecha Nacimiento
+      .comment-form-place
+        input#direccion(placeholder='Dirección *', name='direccion', type='text', size='50', maxlength='245', required)
+        label(for='direccion', data-help='Ej: C/ Sotomayor 45 2ºA, 13300 Valdepeñas') Dirección
+      .comment-form-email
+        input#email(placeholder='Email *', name='email', type='email', size='30', maxlength='100', aria-describedby='email-notes', required)
+        label(for='email', data-help='Formato email@email.com') Email
+      .comment-form-name
+        input#nacionalidad(placeholder='Nacionalidad *', name='nacionalidad', type='text', pattern='^[^0-9]+$', size='30', maxlength='200', required)
+        label(for='nacionalidad', data-help='Ej.: Española') Nacionalidad
+      .comment-form-telf
+        input#tlfcasa(placeholder='Telf. Casa', name='tlfcasa', type='number', min='600000000', max='999999999', size='30', maxlength='200')
+        label(for='tlfcasa', data-help='Ej.:926310521') Telf. fijo
+      .comment-form-telf
+        input#movilpa(placeholder='Móvil Padre/Tutor', name='movilpa', type='number', min='600000000', max='999999999', size='30', maxlength='200')
+        label(for='movilpa', data-help='Ej.:666666666') Móvil Padre/Tutor
+      .comment-form-telf
+        input#movilma(placeholder='Móvil Madre/Tutora', name='movilma', type='number', min='600000000', max='999999999', size='30', maxlength='200')
+        label(for='movilma', data-help='Ej.:666666666') Móvil Madre/Tutora
+      .comment-form-comment
+        textarea#comment(textarea, placeholder='Comentarios *', name='comment', cols='45', rows='8', maxlength='65525', required)
+        label(for='comment', data-help='Relevante a tu vida Académica, si eres Bilingüe, asignaturas pendientes de otros cursos, etc.') Comentario
+      #verinput.btn Sube una foto
+      #phcrop.comment-form-comment(style='display: none;')
+        p Sube una foto (desde un dispositivo móvil se activará la cámara para que te hagas una). Tu rostro debe estar en primer plano. Una vez la hayas ajustado se mostrará una previsualización, asegúrate que tu rostro puede verse con nitidez.
+        input#upload(name='photo', type='file', accept='image/*', capture)
+        #upload-input
+          #phdoscrop.btn(style='display: none;') Ajustar Selección
+          input(type='text', name='photob64', style='display: none;')
+      .form-submit
+        input#submit.submit(name='submit', type='submit', value='Enviar Datos')
+    script(src='/javascripts/script.js')
