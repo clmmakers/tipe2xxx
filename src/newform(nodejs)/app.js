@@ -24,7 +24,13 @@ app.get('/',function(request,response){
 });
 
 var num= 000;
-const dir = process.env.HOME+"/Library/Application Support/Tipe/Server";
+let dir;
+if (process.platform==="win32"){
+     console.log(process.env.APPDATA);
+    dir = process.env.APPDATA+"/Tipe/Server";
+}else if (process.platform==="darwin"){
+    dir = process.env.HOME+"/Library/Application Support/Tipe/Server";
+}
 if (!fs.existsSync(dir)){
     fs.mkdirSync(dir);
 }
@@ -65,7 +71,7 @@ const server = app.listen(3000,function(){
 
 const shutdownmanager = new GracefulShutdownManager(server);
 
-process.on ('SIGTERM', () =>{
+process.on ('SIGINT SIGTERM', () =>{
     shutdownmanager.terminate(()=>{
         fse.copy(dir,process.env.HOME+'/Desktop/TipeFilesServer').then(()=>{
             fse.emptyDir(dir, (err)=>{
