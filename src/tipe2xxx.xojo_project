@@ -116,6 +116,7 @@ MultiImage=mini50New;VISTA/imgs/mini50New.xojo_image;&h00000000062147FF;&h000000
 MultiImage=icons8cerrarventana38;VISTA/imgs/icons8cerrarventana38.xojo_image;&h0000000029C417FF;&h00000000064B9FFF;false
 Class=docuxinstrumxalumno;MODELO/docuxinstrumxalumno.xojo_code;&h00000000101ED7FF;&h000000000255CFFF;false
 Class=pdfreport;CONTROLADOR/pdfreport.xojo_code;&h0000000019C65FFF;&h000000006C7667FF;false
+Class=Class1;VISTA/Containers/Class1.xojo_code;&h000000001F6F6FFF;&h00000000328657FF;false
 DefaultWindow=main
 AppMenuBar=MainMenuBar
 MajorVersion=2021

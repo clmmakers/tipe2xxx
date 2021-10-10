@@ -24,12 +24,19 @@ app.get('/',function(request,response){
 });
 var dir;
 var num= 000;
+<<<<<<< Updated upstream
 if (process.platform==="win32"){
     // let desk = process.env.USERPROFILE+'\Desktop'
     // console.log(desk);
     dir = process.env.APPDATA+"/Tipe/Server";
 }else if (process.platform==="darwin"){
     dir = process.env.HOME+"/Library/Application Support/Tipe/Server";
+=======
+if (process.platform=="darwin"){
+    dir = process.env.HOME+"/Library/Application Support/Tipe/Server";
+}else {
+    dir = process.env.APPDATA+"\\Tipe\\Server";
+>>>>>>> Stashed changes
 }
 if (!fs.existsSync(dir)){
     fs.mkdirSync(dir);
@@ -75,6 +82,7 @@ const shutdownmanager = new GracefulShutdownManager(server);
 process.on ('SIGTERM', () =>{
     shutdownmanager.terminate(()=>{
         var desk ;
+<<<<<<< Updated upstream
             desk= process.env.HOME+'/Desktop/TipeFileServer';
         fse.copy(dir,process.env.HOME+'/Desktop/TipeFilesServer').then(()=>{
             fse.emptyDir(dir, (err)=>{
@@ -90,6 +98,13 @@ process.on ('SIGINT', () =>{
     shutdownmanager.terminate(()=>{
         var desk ;
         desk = process.env.USERPROFILE + '\Desktop\TipeFileServer';
+=======
+        if (process.platform=='darwin'){
+            desk= process.env.HOME+'/Desktop/TipeFileServer';
+        }else{
+            desk = process.env.HOMEPATH + '\\TipeFileServer';
+        }
+>>>>>>> Stashed changes
         fse.copy(dir,process.env.HOME+'/Desktop/TipeFilesServer').then(()=>{
             fse.emptyDir(dir, (err)=>{
                 if (err) return console.error(err);

@@ -320,7 +320,7 @@ Protected Module globales
 	#tag Method, Flags = &h0
 		Sub csvout(extends lb as Listbox,name as string,optional esalumn as Boolean=false)
 		  Dim rowCount, columnCount As Integer
-		  Dim rowOut(), outputString As String
+		  Dim rowOut(), outputString As String //unused ?
 		  Dim excelOut As TextOutputStream
 		  
 		  Dim dlg as New SaveAsDialog

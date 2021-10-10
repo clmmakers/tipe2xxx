@@ -6752,7 +6752,7 @@ End
 		  if hitItem <> nil then
 		    
 		    dim numcol as integer= me.ColumnCount-1
-		    dim numfil as integer=me.ListCount-1
+		    //dim numfil as integer=me.ListCount-1  //unused?
 		    
 		    if hitItem.Tag="clonactual" then
 		      if  not IsNumeric(me.Cell(me.ListIndex,3)) then

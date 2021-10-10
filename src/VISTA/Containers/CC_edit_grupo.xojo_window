@@ -1361,7 +1361,7 @@ End
 
 	#tag Method, Flags = &h21
 		Private Function checkdata() As Boolean
-		  dim n as Boolean=false
+		  //dim n as Boolean=false //unused?
 		  if Txtdenom.Text="" then
 		    return False
 		  elseif Popupnivel.ListIndex=0 then
@@ -1682,6 +1682,14 @@ End
 		Private mlocalgrupo As grupo_materia
 	#tag EndProperty
 
+	#tag Property, Flags = &h0
+		mshell As Shell
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		mshi As Shell
+	#tag EndProperty
+
 	#tag Property, Flags = &h21
 		Private nameact As String
 	#tag EndProperty
@@ -1939,7 +1947,7 @@ End
 		        
 		        
 		        if mstud.guardar Then
-		          if Listbox1.CellTagAt(i,1)>Nil then
+		          if Listbox1.CellTagAt(i,1)<>"" then
 		            var id as Integer= mstud.id_alumno
 		            var foldertemp as new FolderItem
 		            foldertemp = ff.Child(Listbox1.CellTagAt(i,1))
@@ -2055,19 +2063,11 @@ End
 	#tag Event
 		Sub Action()
 		  /////////////
+		  mshell = new Shell
+		  'mshell.ExecuteMode = Shell.ExecuteModes.Interactive
+		  //sh.Canonical = true
 		  if me.Caption= translat.k_webservicestart then
-		    #if TargetMacOS then
-		      var sh as new shell
-		      'var f as FolderItem=SpecialFolder.ApplicationData
-		      var f as FolderItem=globales.pathappdata
-		      var com as string = f.ShellPath+"/xpws"
-		      try
-		        sh.Execute("."+com)
-		      end try
-		      
-		    #else
-		      
-		    #endif
+		    
 		    if interfaces.Ubound<>-1 then
 		      if interfaces.Ubound=0 then
 		        MsgBox (translat.k_txt_infowebserver + interfaces(0).IpAddress +":3000")
@@ -2087,11 +2087,26 @@ End
 		    Listbox1.RemoveAllRows
 		    ReadServerDataTimer.RunMode=timer.RunModes.Multiple
 		    setcontrolimportacion(1)
+		    #if TargetMacOS then
+		      
+		      'var f as FolderItem=SpecialFolder.ApplicationData
+		      var f as FolderItem=globales.pathappdata.Child("xpws") 
+		      mshell.Execute("open " + f.ShellPath)
+		      'var rutaexex as string = f.ShellPath+"/xpws"
+		      //try
+		      'f.Open //run pero se abre ventana de terminal
+		      'mshell.Execute("."+rutaexex)
+		      'MessageBox(mshell.PID.ToText)
+		      //end try
+		      
+		    #else
+		      
+		    #endif
 		    
 		  Else
 		    dim prompt as new MessageDialog
 		    prompt.Message=translat.k_txtquierestopserver
-		    prompt.ActionButton.Caption =translat.k_eliminar
+		    prompt.ActionButton.Caption =translat.k_pararWeb
 		    prompt.CancelButton.Visible = True
 		    prompt.CancelButton.Caption=translat.k_cancelar
 		    
@@ -2099,14 +2114,20 @@ End
 		    result= prompt.ShowModalWithin(self)
 		    
 		    if result=prompt.ActionButton then
-		      var sh as new shell
+		      mshi = new Shell
+		      
 		      #if TargetMacOS then
 		        try
-		          sh.Execute("pkill xpws")
+		          'mshell.Execute("pkill xpws")
+		          'mshell.Close()
+		          'shi.Execute("kill -s TERM "+ mshell.PID.ToString) //se 'mata' a si mismo (a Tipe???)
+		          mshi.Execute("pkill xpws")
+		          'mshell.Close
 		        end try
 		      #else
 		        try
-		          sh.Execute("tskill xpws")
+		          shi.Execute("tskill xpws")
+		          sh.Close
 		        end try
 		      #endif
 		      Listbox1.RemoveAllRows

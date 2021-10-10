@@ -1059,6 +1059,11 @@ Protected Module translat
 		#Tag Instance, Platform = Any, Language = en, Definition  = \"Father"
 	#tag EndConstant
 
+	#tag Constant, Name = k_pararWeb, Type = String, Dynamic = True, Default = \"Parar Servicio Web", Scope = Protected
+		#Tag Instance, Platform = Any, Language = es, Definition  = \"Parar Servicio Web"
+		#Tag Instance, Platform = Any, Language = en, Definition  = \"Stop Web Service"
+	#tag EndConstant
+
 	#tag Constant, Name = k_percentxgrupo, Type = String, Dynamic = True, Default = \"Porcentajes por Grupo", Scope = Protected
 		#Tag Instance, Platform = Any, Language = es, Definition  = \"Porcentajes por Grupo"
 		#Tag Instance, Platform = Any, Language = en, Definition  = \"Percentages per Group"

@@ -12,7 +12,7 @@ Protected Class fpdf
 	#tag Method, Flags = &h0
 		Sub AddFont(Family as string, optional Style as string = "", optional File as string = "")
 		  dim FontKey as string
-		  dim FontInfo as new Collection
+		  //dim FontInfo as new Collection. //unused
 		  
 		  //Add a TrueType or Type1 font
 		  
@@ -702,7 +702,7 @@ Protected Class fpdf
 		  dim myDecPoint as string
 		  dim myRetVar as string
 		  
-		  dim i as integer
+		  //dim i as integer //unused?
 		  
 		  myDecPoint = format(1.1,"0.0").mid(2,1)
 		  
@@ -728,11 +728,11 @@ Protected Class fpdf
 		  dim a as FolderItem
 		  dim f as BinaryStream
 		  
-		  dim data as string
+		  //dim data as string //unused?
 		  
 		  dim marker as Integer
 		  
-		  dim length, bits, height, width, channels as Integer
+		  dim length as Integer //bits, height, width, channels unused?
 		  
 		  dim r as Collection
 		  

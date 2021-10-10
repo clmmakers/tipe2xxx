@@ -239,7 +239,7 @@ Protected Class standar
 		  
 		  statement.Bind(0,est_denominacion)
 		  statement.Bind(1,id_criterio_rel)
-		  dim wg,wcom as string
+		  dim wg as string //,wcom unused ?
 		  wg=translatpesotodb(peso)
 		  statement.Bind(2,wg)
 		  //wcom=translatcompetodb(competencia)

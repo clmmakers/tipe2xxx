@@ -1243,7 +1243,7 @@ End
 		      
 		      dim result as MessageDialogButton
 		      result= prompt.ShowModalWithin(self)
-		      dim idgrup as integer=me.RowTag(me.ListIndex)
+		      //dim idgrup as integer=me.RowTag(me.ListIndex). //unused
 		      if result=prompt.ActionButton then
 		        dim listofemail() as String
 		        dim listofnullemailstudents() as string
