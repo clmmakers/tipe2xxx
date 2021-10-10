@@ -22,12 +22,11 @@ var arr=[];
 app.get('/',function(request,response){
     return response.render('index');
 });
-
+var dir;
 var num= 000;
-let dir;
 if (process.platform==="win32"){
-    let desk = process.env.USERPROFILE+'\Desktop'
-    console.log(desk);
+    // let desk = process.env.USERPROFILE+'\Desktop'
+    // console.log(desk);
     dir = process.env.APPDATA+"/Tipe/Server";
 }else if (process.platform==="darwin"){
     dir = process.env.HOME+"/Library/Application Support/Tipe/Server";
@@ -72,21 +71,32 @@ const server = app.listen(3000,function(){
 
 const shutdownmanager = new GracefulShutdownManager(server);
 
-process.on ('SIGINT SIGTERM', () =>{
+//GET SIGNAL FROM WINDOWS CMD TSKILL OR TASKKILL PENDING!!!
+process.on ('SIGTERM', () =>{
     shutdownmanager.terminate(()=>{
-        let desktop;
-        if (process.platform==="win32"){
-            desktop = process.env.USERPROFILE+"\Desktop\TipeFilesServer";
-        }else{
-            desktop = process.env.HOME+'/Desktop/TipeFilesServer';
-        }
-        fse.copy(dir,desktop).then(()=>{
+        var desk ;
+            desk= process.env.HOME+'/Desktop/TipeFileServer';
+        fse.copy(dir,process.env.HOME+'/Desktop/TipeFilesServer').then(()=>{
             fse.emptyDir(dir, (err)=>{
                 if (err) return console.error(err);
             });
         }).catch (err =>{
             console.error(err);
         })
-        console.log("Server is gracefully terminated");
+        console.log("Server is gracefully terminated, signal received SIGTERM");
+    });
+});
+process.on ('SIGINT', () =>{
+    shutdownmanager.terminate(()=>{
+        var desk ;
+        desk = process.env.USERPROFILE + '\Desktop\TipeFileServer';
+        fse.copy(dir,process.env.HOME+'/Desktop/TipeFilesServer').then(()=>{
+            fse.emptyDir(dir, (err)=>{
+                if (err) return console.error(err);
+            });
+        }).catch (err =>{
+            console.error(err);
+        })
+        console.log("Server is gracefully terminated, signal received SIGINT");
     });
 });
