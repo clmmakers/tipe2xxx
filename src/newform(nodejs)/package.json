@@ -13,7 +13,8 @@
       "public/**/*"
     ],
     "targets": [
-      "macos-x64"
+      "macos-x64",
+      "node14-win"
     ]
   },
   "author": "clmMakers",
