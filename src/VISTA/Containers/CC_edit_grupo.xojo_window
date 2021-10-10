@@ -1286,15 +1286,16 @@ End
 	#tag Event
 		Sub Close()
 		  if serveractive then
+		    var sh as new shell
 		    //Socket.StopListening
 		    #if TargetMacOS then
-		      var sh as new shell
+		      
 		      try
-		        sh.Execute("pkill xpws")
+		        sh.Execute("pkill xpws-macos")
 		      end try
 		    #else
 		      try
-		        sh.Execute("tskill xpws")
+		        sh.Execute("taskkill /im xpws-win.exe")
 		      end try
 		    #endif
 		    MsgBox ("HEY! he apagado el servidor automáticamente!")
@@ -2064,8 +2065,7 @@ End
 		Sub Action()
 		  /////////////
 		  mshell = new Shell
-		  'mshell.ExecuteMode = Shell.ExecuteModes.Interactive
-		  //sh.Canonical = true
+		  
 		  if me.Caption= translat.k_webservicestart then
 		    
 		    if interfaces.Ubound<>-1 then
@@ -2087,20 +2087,13 @@ End
 		    Listbox1.RemoveAllRows
 		    ReadServerDataTimer.RunMode=timer.RunModes.Multiple
 		    setcontrolimportacion(1)
+		    
 		    #if TargetMacOS then
-		      
-		      'var f as FolderItem=SpecialFolder.ApplicationData
-		      var f as FolderItem=globales.pathappdata.Child("xpws") 
+		      var f as FolderItem=globales.pathappdata.Child("xpws-macos") 
 		      mshell.Execute("open " + f.ShellPath)
-		      'var rutaexex as string = f.ShellPath+"/xpws"
-		      //try
-		      'f.Open //run pero se abre ventana de terminal
-		      'mshell.Execute("."+rutaexex)
-		      'MessageBox(mshell.PID.ToText)
-		      //end try
-		      
 		    #else
-		      
+		      var f as FolderItem=globales.pathappdata.Child("xpws-win.exe") 
+		      mshell.Execute("start " + f.ShellPath)
 		    #endif
 		    
 		  Else
@@ -2121,13 +2114,13 @@ End
 		          'mshell.Execute("pkill xpws")
 		          'mshell.Close()
 		          'shi.Execute("kill -s TERM "+ mshell.PID.ToString) //se 'mata' a si mismo (a Tipe???)
-		          mshi.Execute("pkill xpws")
+		          mshi.Execute("pkill xpws-macos")
 		          'mshell.Close
 		        end try
 		      #else
 		        try
-		          shi.Execute("tskill xpws")
-		          sh.Close
+		          mshi.Execute("taskkill /im  xpws-win.exe")
+		          
 		        end try
 		      #endif
 		      Listbox1.RemoveAllRows
