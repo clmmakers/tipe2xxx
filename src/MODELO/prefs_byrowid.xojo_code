@@ -21,6 +21,11 @@ Protected Class prefs_byrowid
 		    centrofax=result.Field("centrofax").StringValue
 		    centromail=result.Field("centromail").StringValue
 		    checkingindash=checkatstart
+		    if pestmedio > 36 then
+		      // recover fields added with pestmedio<37
+		      docente=result.Field("docente").StringValue
+		      emaildocente=result.Field("emaildocente").StringValue
+		    End If
 		    
 		    if checkreport<2 then //from 3.3.1 using jpg
 		      dim mbfooter,mblogo as Picture
@@ -76,9 +81,7 @@ Protected Class prefs_byrowid
 		      pestmedio=37
 		    End If
 		    
-		    // recover fields added with pestmedio<37
-		    docente=result.Field("docente").StringValue
-		    emaildocente=result.Field("emaildocente").StringValue
+		    
 		    
 		    if pestmedio<38 then //update documents table for adding files x student & assesstment feature using new framework
 		      DATADB.ExecuteSQL("BEGIN TRANSACTION")
@@ -86,14 +89,14 @@ Protected Class prefs_byrowid
 		      DATADB.ExecuteSQL("ALTER TABLE documents ADD id_assesrel INTEGER")
 		      DATADB.ExecuteSQL("ALTER TABLE anotacion ADD id_assesrel INTEGER")
 		      DATADB.ExecuteSQL("UPDATE prefs set pestmedio=38")
-		      try
-		        DATADB.CommitTransaction
-		      Catch error as DatabaseException
-		        DATADB.RollbackTransaction
-		      end try
+		      DATADB.Commit
+		      'try
+		      'DATADB.CommitTransaction
+		      'Catch error as DatabaseException
+		      'DATADB.RollbackTransaction
+		      'end try
 		      pestmedio=38
 		    End If
-		    
 		    
 		    
 		    result.Close

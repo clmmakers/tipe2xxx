@@ -64,7 +64,7 @@ Protected Class assesstment
 	#tag Method, Flags = &h0
 		Shared Function getassesxunitrel(idunit as integer) As assesstment()
 		  dim sql as String
-		  sql= "SELECT * from v_assesscount_est where id_unitrel=?  ORDER BY rowid DESC"
+		  sql= "SELECT * from v_assesscount_est where id_unitrel=?  ORDER BY id_unitrel DESC"
 		  Dim statement As PreparedSQLStatement = DATADB.Prepare(sql)
 		  statement.BindType(0, SQLitePreparedStatement.SQLITE_INTEGER)//id_unitrel
 		  

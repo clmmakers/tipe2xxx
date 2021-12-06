@@ -30,7 +30,7 @@ Begin ContainerControl Cc_DashBoard
       AllowAutoDeactivate=   True
       AllowFocus      =   True
       BackgroundColor =   &c00000000
-      BevelStyle      =   0
+      BevelStyle      =   3
       Bold            =   False
       ButtonStyle     =   0
       Caption         =   "Info"
@@ -685,7 +685,6 @@ Begin ContainerControl Cc_DashBoard
          Scope           =   0
          TabIndex        =   3
          TabPanelIndex   =   5
-         TabStop         =   True
          Tooltip         =   ""
          Top             =   20
          Transparent     =   True
@@ -1794,7 +1793,7 @@ Begin ContainerControl Cc_DashBoard
       AllowAutoDeactivate=   True
       AllowFocus      =   True
       BackgroundColor =   &c00000000
-      BevelStyle      =   0
+      BevelStyle      =   3
       Bold            =   False
       ButtonStyle     =   0
       Caption         =   "#translat.k_horario"
@@ -1838,7 +1837,7 @@ Begin ContainerControl Cc_DashBoard
       AllowAutoDeactivate=   True
       AllowFocus      =   True
       BackgroundColor =   &c00000000
-      BevelStyle      =   0
+      BevelStyle      =   3
       Bold            =   False
       ButtonStyle     =   0
       Caption         =   "#translat.k_periodoseval"
@@ -1882,7 +1881,7 @@ Begin ContainerControl Cc_DashBoard
       AllowAutoDeactivate=   True
       AllowFocus      =   True
       BackgroundColor =   &c00000000
-      BevelStyle      =   0
+      BevelStyle      =   3
       Bold            =   False
       ButtonStyle     =   0
       Caption         =   "#translat.K_accesodb"
@@ -1926,7 +1925,7 @@ Begin ContainerControl Cc_DashBoard
       AllowAutoDeactivate=   True
       AllowFocus      =   True
       BackgroundColor =   &c00000000
-      BevelStyle      =   0
+      BevelStyle      =   3
       Bold            =   False
       ButtonStyle     =   0
       Caption         =   "#translat.k_configurarinformes"
@@ -1970,7 +1969,7 @@ Begin ContainerControl Cc_DashBoard
       AllowAutoDeactivate=   True
       AllowFocus      =   True
       BackgroundColor =   &c00000000
-      BevelStyle      =   0
+      BevelStyle      =   3
       Bold            =   False
       ButtonStyle     =   0
       Caption         =   "#translat.k_limpiaorphans"
@@ -2014,7 +2013,7 @@ Begin ContainerControl Cc_DashBoard
       AllowAutoDeactivate=   True
       AllowFocus      =   True
       BackgroundColor =   &c00000000
-      BevelStyle      =   0
+      BevelStyle      =   3
       Bold            =   False
       ButtonStyle     =   0
       Caption         =   "#translat.k_optionsimpexp"

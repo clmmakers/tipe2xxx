@@ -118,7 +118,7 @@ Protected Class unit
 	#tag Method, Flags = &h0
 		Shared Function getunitsxgrupomat(idgrupo as integer) As unit()
 		  dim sql as String
-		  sql= "SELECT id_units from v_units where idgrupomatrel=?  ORDER BY rowid DESC"
+		  sql= "SELECT id_units from v_units where idgrupomatrel=?  ORDER BY id_matrel DESC"
 		  Dim statement As PreparedSQLStatement = DATADB.Prepare(sql)
 		  statement.BindType(0, SQLitePreparedStatement.SQLITE_INTEGER)//id_grmatrel
 		  
