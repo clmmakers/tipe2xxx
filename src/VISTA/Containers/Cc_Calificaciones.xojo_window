@@ -168,7 +168,7 @@ Begin ContainerControl Cc_Calificaciones
       HasHorizontalScrollbar=   True
       HasVerticalScrollbar=   True
       HeadingIndex    =   -1
-      Height          =   331
+      Height          =   300
       Index           =   -2147483648
       InitialParent   =   ""
       InitialValue    =   ""
@@ -186,7 +186,7 @@ Begin ContainerControl Cc_Calificaciones
       TabPanelIndex   =   0
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   119
+      Top             =   150
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -203,7 +203,7 @@ Begin ContainerControl Cc_Calificaciones
       FontName        =   "System"
       FontSize        =   0.0
       FontUnit        =   0
-      Height          =   55
+      Height          =   86
       Index           =   -2147483648
       InitialParent   =   ""
       Italic          =   False
@@ -227,7 +227,7 @@ Begin ContainerControl Cc_Calificaciones
       Underline       =   False
       Value           =   ""
       Visible         =   True
-      Width           =   671
+      Width           =   587
    End
    Begin Canvas Canvas1
       AllowAutoDeactivate=   True
@@ -381,6 +381,33 @@ Begin ContainerControl Cc_Calificaciones
       Value           =   ""
       Visible         =   True
       Width           =   164
+   End
+   Begin Canvas fotcanvas1
+      AllowAutoDeactivate=   True
+      AllowFocus      =   False
+      AllowFocusRing  =   False
+      AllowTabs       =   False
+      Backdrop        =   0
+      DoubleBuffer    =   False
+      Enabled         =   False
+      Height          =   70
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Left            =   892
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   False
+      LockRight       =   True
+      LockTop         =   True
+      Scope           =   0
+      TabIndex        =   9
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Tooltip         =   ""
+      Top             =   64
+      Transparent     =   True
+      Visible         =   True
+      Width           =   70
    End
 End
 #tag EndWindow
@@ -709,6 +736,7 @@ End
 		    Listalumncalifasses.DeleteAllRows
 		    lblinfoestandar.Text=""
 		    GBdescript.Visible=true
+		    fotcanvas1.Backdrop=Nil
 		    //organiza Listalumncalifasses
 		    Listalumncalifasses.ColumnCount=3+me.CellTag(me.ListIndex,0)
 		    
@@ -1239,6 +1267,24 @@ End
 		  
 		End Function
 	#tag EndEvent
+	#tag Event
+		Sub Change()
+		  if me.SelectedRowIndex <> -1 then
+		    dim al as  new estudiante(me.CellTagAt(me.SelectedRowIndex,0))
+		    dim pic as Picture= new Picture (fotcanvas1.Width, fotcanvas1.Height)
+		    if al.photopath<>"" then
+		      var ruta as text=getWorkingDir(al.photopath,"photos")
+		      dim f as new FolderItem(ruta,FolderItem.PathModes.Native)
+		      var pht as Picture=Picture.Open(f)
+		      pic.Graphics.DrawPicture(pht, 0,0,70,70,0,0,90,90)
+		      fotcanvas1.Backdrop=pic
+		    else
+		      pic.Graphics.DrawPicture(silouete, 0,0,70,70,0,0,90,90)
+		      fotcanvas1.Backdrop=pic
+		    end if
+		  end if
+		End Sub
+	#tag EndEvent
 #tag EndEvents
 #tag Events Label1
 	#tag Event
@@ -1246,6 +1292,8 @@ End
 		  me.text=chr(9437)+": Notes  "+chr(9427)+": Docum."
 		End Sub
 	#tag EndEvent
+#tag EndEvents
+#tag Events fotcanvas1
 #tag EndEvents
 #tag ViewBehavior
 	#tag ViewProperty

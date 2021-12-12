@@ -141,7 +141,7 @@ Begin ContainerControl Cc_Mastery
       Top             =   0
       Transparent     =   False
       Underline       =   False
-      Value           =   0
+      Value           =   1
       Visible         =   True
       Width           =   755
       Begin PagePanel PagePanelmastery
@@ -1046,7 +1046,7 @@ Begin ContainerControl Cc_Mastery
          ColumnWidths    =   ""
          DataField       =   ""
          DataSource      =   ""
-         DefaultRowHeight=   20
+         DefaultRowHeight=   30
          DropIndicatorVisible=   False
          Enabled         =   True
          FontName        =   "System"
@@ -1270,9 +1270,10 @@ End
 		  //carga students
 		  for each mestu as estudiantebasico in listaestudbasico
 		    listalumnconsolcalif.AddRow
-		    listalumnconsolcalif.Cell(listalumnconsolcalif.LastIndex,0)=mestu.apellidos+", "+mestu.nombre
+		    listalumnconsolcalif.Cell(listalumnconsolcalif.LastIndex,0)="        " +mestu.apellidos+", "+mestu.nombre
 		    Listalumnconsolcalif.cell(Listalumnconsolcalif.LastIndex,1)=mestu.gruporef
 		    listalumnconsolcalif.CellTag(listalumnconsolcalif.LastIndex,0)=mestu.id_alumno
+		    Listalumnconsolcalif.RowTagAt(Listalumnconsolcalif.LastRowIndex)=mestu.photopath
 		  next
 		  //carga calif consolidadas si ya las hubiera
 		  redim mconsolcalif(-1)
@@ -2549,6 +2550,23 @@ End
 		    end if
 		  end if
 		End Sub
+	#tag EndEvent
+	#tag Event
+		Function CellBackgroundPaint(g as graphics, row as integer, column as integer) As Boolean
+		  if row < me.RowCount then
+		    if column=0 then
+		      if me.RowTagAt(row)>"" Then
+		        
+		        var ruta as text=getWorkingDir(me.RowTagAt(row),"photos") 
+		        var f as new FolderItem(ruta,FolderItem.PathModes.Native)
+		        dim pic as Picture=Picture.Open(f)
+		        g.DrawPicture(pic,2,1,30,30,0,0,90,90)
+		        return true
+		        
+		      end if
+		    end if
+		  end if
+		End Function
 	#tag EndEvent
 #tag EndEvents
 #tag ViewBehavior

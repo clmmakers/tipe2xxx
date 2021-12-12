@@ -10,7 +10,7 @@ Begin Window main
    HasBackColor    =   False
    Height          =   600
    ImplicitInstance=   True
-   LiveResize      =   True
+   LiveResize      =   "True"
    MacProcID       =   0
    MaxHeight       =   32000
    MaximizeButton  =   True
@@ -108,7 +108,7 @@ Begin Window main
       Underline       =   False
       Value           =   "Untitled"
       Visible         =   True
-      Width           =   389
+      Width           =   227
    End
    Begin Canvas Canvas1
       AllowAutoDeactivate=   True

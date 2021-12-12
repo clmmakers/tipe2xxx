@@ -3773,12 +3773,12 @@ Begin Window Windowstu
       TextAlignment   =   2
       TextColor       =   &c00000000
       Tooltip         =   ""
-      Top             =   -1
+      Top             =   8
       Transparent     =   False
       Underline       =   False
       Value           =   "Aquí el nombre del nene en cuestión..."
       Visible         =   True
-      Width           =   696
+      Width           =   642
    End
    Begin pushbutton btnbackalu
       AllowAutoDeactivate=   True
@@ -3866,6 +3866,33 @@ Begin Window Windowstu
       Transparent     =   False
       Visible         =   True
       Width           =   38
+   End
+   Begin Canvas fotcanvas1
+      AllowAutoDeactivate=   True
+      AllowFocus      =   False
+      AllowFocusRing  =   False
+      AllowTabs       =   False
+      Backdrop        =   0
+      DoubleBuffer    =   False
+      Enabled         =   False
+      Height          =   42
+      Index           =   -2147483648
+      InitialParent   =   ""
+      Left            =   726
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   False
+      LockRight       =   True
+      LockTop         =   True
+      Scope           =   0
+      TabIndex        =   8
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Tooltip         =   ""
+      Top             =   8
+      Transparent     =   True
+      Visible         =   True
+      Width           =   42
    End
 End
 #tag EndWindow
@@ -4989,9 +5016,21 @@ End
 			    var ruta as text=getWorkingDir(malumno.photopath,"photos")
 			    dim f as new FolderItem(ruta,FolderItem.PathModes.Native)
 			    fotcanvas.Backdrop= Picture.Open(f)
+			    var pht as Picture=Picture.Open(f)
+			    
+			    dim pic as Picture= new Picture (fotcanvas1.Width, fotcanvas1.Height)
+			    pic.Graphics.DrawPicture(pht, 0,0,40,40,0,0,90,90)
+			    fotcanvas1.Backdrop=pic
+			    
+			    'fotcanvas1.Backdrop=Picture.Open(f)
 			    arrastrafoto.Visible=False
 			  else
+			    
 			    fotcanvas.Backdrop=silouete
+			    dim pic as Picture= new Picture (fotcanvas1.Width, fotcanvas1.Height)
+			    pic.Graphics.DrawPicture(silouete, 0,0,40,40,0,0,90,90)
+			    fotcanvas1.Backdrop=pic
+			    'fotcanvas.Backdrop=silouete
 			    arrastrafoto.Visible=True
 			  end if
 			  papatxt.Text=malumno.padre
@@ -7213,6 +7252,8 @@ End
 		  self.Close
 		End Function
 	#tag EndEvent
+#tag EndEvents
+#tag Events fotcanvas1
 #tag EndEvents
 #tag ViewBehavior
 	#tag ViewProperty
